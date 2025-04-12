@@ -1,0 +1,45 @@
+settings:
+    # The type of connection to Discord WEBHOOK or BOT
+  type: WEBHOOK
+  # Settings for the Discord Webhook
+  webhook:
+    # The URL of the Discord Webhook
+    url: 'https://discord.com/api/webhooks/123456789012345678/abcdefghijklmnopqrstuvwxyz'
+    # The username of the webhook
+    username: 'Minecraft Bot'
+    # The avatar URL of the webhook
+    avatar_url: 'https://example.com/avatar.png'
+
+    # Settings for the Discord Bot
+    bot:
+      # The token of the Discord Bot
+      token: 'your-bot-token'
+      # The channel ID to send messages to
+      channel_id: '123456789012345678'
+      # Should the Plugin send messages to minecraft (not available for WEBHOOK)
+      send_to_minecraft: true
+messages:
+  # Join message
+    join:
+      enabled: true
+      message: '{player} has joined the server!'
+      embed:
+        enabled: false
+        avatar: true
+        title: 'Join'
+    # Leave message
+    leave:
+      enabled: true
+      message: '{player} has left the server!'
+      embed:
+        enabled: false
+        avatar: true
+        title: 'Leave'
+    # Chat message
+    chat:
+      enabled: true
+      message: '{player}: {message}'
+      embed:
+        enabled: false
+        avatar: true
+        title: '{player}'
