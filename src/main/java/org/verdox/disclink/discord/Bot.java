@@ -6,6 +6,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.jetbrains.annotations.NotNull;
 import org.verdox.disclink.DiscLink;
+import org.verdox.disclink.SendUtils;
 
 public class Bot extends ListenerAdapter {
     private JDA jda;
@@ -22,13 +23,17 @@ public class Bot extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
-        if (config.getBoolean("settings.bot.enabled")) {
-            if (event.getChannel().getId().equals(config.getString("settings.discord.channel"))) {
-                String message = event.getMessage().getContentRaw();
-                // Handle the message received from Discord
-                // For example, send it to the Minecraft server or log it
-                System.out.println("Received message from Discord: " + message);
-            }
+        if (event.getAuthor().isBot()) return;
+        if (event.getChannel().getId().equals(config.getString("settings.discord.channel"))) {
+            String message = event.getMessage().getContentRaw();
+            String user = event.getAuthor().getName();
+            // Handle the message received from Discord
+            if (config.getBoolean("settings.bot.send_to_minecraft"))
+                SendUtils.sendToMinecraft(user, message);
         }
+    }
+
+    public JDA getJda() {
+        return jda;
     }
 }
